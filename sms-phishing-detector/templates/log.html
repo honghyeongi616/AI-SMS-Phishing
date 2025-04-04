@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="icon" type="image/png" href="/static/icon-192.png">
+    <meta name="theme-color" content="#3498db">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/static/service-worker.js');
+      }
+    </script>    
+    <meta charset="UTF-8">
+    <title>분석 로그</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+        }
+
+        tr.phishing {
+            background-color: #ffe6e6;
+        }
+
+        tr.normal {
+            background-color: #e6f7ff;
+        }
+
+        a {
+            display: block;
+            width: 200px;
+            text-align: center;
+            margin: 30px auto 0;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        a:hover {
+            background: #2980b9;
+        }
+
+        @media (max-width: 600px) {
+            table, th, td {
+                font-size: 0.9rem;
+            }
+
+            body {
+                padding: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>📄 메시지 분석 로그</h1>
+    <table>
+        <tr>
+            <th>메시지 내용</th>
+            <th>결과</th>
+        </tr>
+        {% for msg, label in logs %}
+        <tr class="{{ 'phishing' if label == '1' else 'normal' }}">
+            <td>{{ msg }}</td>
+            <td>{{ '⚠️ 피싱' if label == '1' else '✅ 정상' }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div style="text-align:center; margin-top: 30px;">
+        <a href="/" style="
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        ">← 홈으로 돌아가기</a>
+    </div>
+    
+</body>
+</html>

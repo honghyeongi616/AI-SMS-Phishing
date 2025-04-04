@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="icon" type="image/png" href="/static/icon-192.png">
+    <meta name="theme-color" content="#3498db">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/static/service-worker.js');
+      }
+    </script>
+    
+  <meta charset="UTF-8" />
+  <title>분석 결과</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #eaf6ff, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .message-box {
+      background: #f9f9f9;
+      padding: 15px;
+      border-left: 5px solid #3498db;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      word-break: break-all;
+    }
+
+    .result {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #e74c3c;
+    }
+
+    .normal {
+      color: #27ae60;
+    }
+
+    .btn-group {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      background: #2980b9;
+    }
+
+    @media (max-width: 600px) {
+      .btn-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 분석 결과</h1>
+    <div class="message-box">{{ message }}</div>
+    <div class="result {% if result.startswith('✅') %}normal{% endif %}">
+      {{ result }}
+    </div>
+    <div class="btn-group">
+      <a href="/" class="btn">← 다시 분석하기</a>
+      <a href="/logs" class="btn">📄 로그 보기</a>
+      <a href="/score" class="btn">📊 정확도 평가</a>
+    </div>
+  </div>
+</body>
+</html>
